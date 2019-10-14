@@ -7,7 +7,7 @@ class Fun(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    @commands.command(aliases=['8ball']) #short random choice example with question/responce
+    @commands.command(aliases=['8ball']) #short random choice example with question/response
     async def _8ball(self, ctx, *, question):
         responses = ['Yes', 'No']
         await ctx.send(f'Question: {question}\nAnswer: {random.choice(responses)}')
