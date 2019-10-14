@@ -1,2 +1,2 @@
-# Current
+# SteeleHook
  My Butts Discord Bot
