@@ -1,3 +1,3 @@
 @echo off
-python Steelehook_dev.py %*
+python Steelehook.py %*
 pause
