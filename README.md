@@ -1,4 +1,3 @@
 # SteeleHook
- My Butts Discord Bot
- Now I'm just fucking with the readme
- Pls
+My Butts Discord Bot  
+Now I'm just fucking with the readme  
