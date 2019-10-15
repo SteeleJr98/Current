@@ -96,7 +96,7 @@ celerybeat-schedule
 *.sage.py
 
 # Environments
-prefixes.json
+*.json
 .env
 .venv
 env/
