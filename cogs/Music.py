@@ -62,7 +62,7 @@ class Music(commands.Cog):
                 main_location = os.path.dirname(os.path.realpath(__file__))
                 song_path = os.path.abspath(os.path.realpath('Queue') + '\\' + first_file)
                 if length != 0:
-                    print('Song done, playing nest song.')
+                    print('Song done, playing next song.')
                     print(f'Songs still in queue: {still_q}')
                     song_there = os.path.isfile('song.mp3')
                     if song_there:
