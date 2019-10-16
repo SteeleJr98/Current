@@ -36,7 +36,7 @@ class Information(commands.Cog):
             colour = discord.Colour.green()
         )
 
-        #embed.set_author(name='help')
+
         embed.set_author(name='Fun')
         embed.add_field(name='8ball', value='Ask a question and a yes or no responce. Usage: 8ball (question)', inline=False)
         embed.add_field(name='coinflip', value='Heads or tails? Let the bot decide. Usage: coinflip', inline=False)
