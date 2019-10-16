@@ -24,9 +24,9 @@ class Fun(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send(f'{message}')
 
-    @commands.command()
-    async def MeasureVengefulsDick(self, ctx):
-        await ctx.send('Error 404: Dick Not Found.')
+    # @commands.command()
+    # async def MeasureVengefulsDick(self, ctx):
+    #     await ctx.send('Error 404: Dick Not Found.')
 
 
 
