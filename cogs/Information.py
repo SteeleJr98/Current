@@ -4,7 +4,7 @@ from discord.ext import commands
 
 
 
-Version = discord.Game('SteeleHookv2.3.0')
+Version = discord.Game('SteeleHookv2.4.0')
 
 class Information(commands.Cog):
 
