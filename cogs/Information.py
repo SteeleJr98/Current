@@ -83,7 +83,7 @@ class Information(commands.Cog):
             embed4.add_field(name='help', value='sends you this message. Usage: help', inline=False)
 
             await ctx.author.send(embed=embed4)
-            await ctx.send('Ckeck your DMs')
+            await ctx.send('Check your DMs')
 
 
 
