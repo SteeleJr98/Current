@@ -24,6 +24,10 @@ class Fun(commands.Cog):
         await ctx.channel.purge(limit=1)
         await ctx.send(f'{message}')
 
+    @commands.command()
+    async def derp(self, ctx):
+        await ctx.send('<:Steele_Derp:520660651169939476>')
+
     # @commands.command()
     # async def MeasureVengefulsDick(self, ctx):
     #     await ctx.send('Error 404: Dick Not Found.')
