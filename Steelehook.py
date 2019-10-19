@@ -18,7 +18,7 @@ def get_prefix(client, message):
 
 
 
-client = commands.Bot(command_prefix = get_prefix)
+client = commands.Bot(command_prefix = get_prefix, case_insensitive=True)
 client.remove_command('help')
 
 
