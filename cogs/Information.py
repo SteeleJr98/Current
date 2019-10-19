@@ -4,7 +4,7 @@ from discord.ext import commands
 
 
 
-Version = discord.Game('Snapshot 2.5.1')
+Version = discord.Game('SteeleHook v2.5.1')
 
 class Information(commands.Cog):
 
@@ -46,9 +46,21 @@ class Information(commands.Cog):
             embed.add_field(name='8ball', value='Ask a question and a yes or no responce. Usage: 8ball (question)', inline=False)
             embed.add_field(name='coinflip', value='Heads or tails? Let the bot decide. Usage: coinflip', inline=False)
             embed.add_field(name='say', value='Make the bot say anything you like. Usage: say (message)', inline=False)
+            embed.add_field(name='derp', value='Dose a derp. Usage: derp')
 
             await ctx.author.send(embed=embed)
 
+            embed5 = discord.Embed(
+                colour = discord.Colour.purple()
+            )
+
+            embed5.set_author(name='Music')
+            embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
+            embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
+            embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
+            embed5.set_footer(text='Only works with YouTube at the moment. Longer videos may cause problems (gonna fix that)')
+
+            await ctx.author.send(embed=embed5)
 
             embed2 = discord.Embed(
                 colour = discord.Colour.orange()
