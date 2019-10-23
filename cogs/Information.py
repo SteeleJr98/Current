@@ -4,7 +4,7 @@ from discord.ext import commands
 
 
 
-Version = discord.Game('SteeleHook v2.5.1')
+Version = discord.Game('Snapshot 2.5.2')
 
 class Information(commands.Cog):
 
@@ -95,7 +95,7 @@ class Information(commands.Cog):
             embed4.add_field(name='help', value='sends you this message. Usage: help', inline=False)
 
             await ctx.author.send(embed=embed4)
-            await ctx.send('Check your DMs')
+            await ctx.send('Check your DMs <:Steele_Wink:583104217892388865>')
 
 
 
