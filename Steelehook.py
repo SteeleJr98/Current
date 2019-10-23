@@ -13,7 +13,8 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
-        return prefixes[str(message.guild.id)]
+        server_prefix = prefixes[str(message.guild.id)]
+        return commands.when_mentioned_or(*server_prefix)(client, message)
 
 
 
