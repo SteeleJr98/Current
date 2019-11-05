@@ -13,8 +13,15 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
-        server_prefix = prefixes[str(message.guild.id)]
-        return commands.when_mentioned_or(*server_prefix)(client, message)
+        #print('test1')
+        if isinstance(message.channel, discord.DMChannel):
+            #print('DM sent to bot')
+            default_prefix = '&'
+            return default_prefix
+        else:
+            server_prefix = prefixes[str(message.guild.id)]
+            #print(server_prefix)
+            return commands.when_mentioned_or(*server_prefix)(client, message)
 
 
 
