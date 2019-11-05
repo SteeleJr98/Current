@@ -4,7 +4,7 @@ from discord.ext import commands
 
 
 
-Version = discord.Game('Snapshot 2.5.2')
+Version = discord.Game('Snapshot 3.1.0')
 
 class Information(commands.Cog):
 
@@ -50,17 +50,17 @@ class Information(commands.Cog):
 
             await ctx.author.send(embed=embed)
 
-            embed5 = discord.Embed(
-                colour = discord.Colour.purple()
-            )
-
-            embed5.set_author(name='Music')
-            embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
-            embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
-            embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
-            embed5.set_footer(text='Only works with YouTube at the moment. Longer videos may cause problems (gonna fix that)')
-
-            await ctx.author.send(embed=embed5)
+            # embed5 = discord.Embed(
+            #     colour = discord.Colour.purple()
+            # )
+            #
+            # embed5.set_author(name='Music')
+            # embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
+            # embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
+            # embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
+            # embed5.set_footer(text='Only works with YouTube at the moment. Longer videos may cause problems (gonna fix that)')
+            #
+            # await ctx.author.send(embed=embed5)
 
             embed2 = discord.Embed(
                 colour = discord.Colour.orange()
@@ -91,8 +91,9 @@ class Information(commands.Cog):
                 colour = discord.Colour.blue()
             )
 
-            embed4.set_author(name='Help')
+            embed4.set_author(name='Misc')
             embed4.add_field(name='help', value='sends you this message. Usage: help', inline=False)
+            embed4.add_field(name='DM Support', value='To use bot commands within a direct message with the bot you must use the prefix "&"', inline=False)
 
             await ctx.author.send(embed=embed4)
             await ctx.send('Check your DMs <:Steele_Wink:583104217892388865>')
