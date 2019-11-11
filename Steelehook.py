@@ -16,6 +16,8 @@ def get_prefix(client, message):
         #print('test1')
         if isinstance(message.channel, discord.DMChannel):
             #print('DM sent to bot')
+            print(f'{message.author} said: {message.content}')
+            #print(message.content)
             default_prefix = '&'
             return default_prefix
         else:
