@@ -35,7 +35,7 @@ class Fun(commands.Cog):
 
     @commands.command()
     async def derp(self, ctx):
-        await ctx.send('<:Steele_Derp:520660651169939476>')
+        await ctx.send('<:SteeleDerp:641527755040620554>')
 
     # @commands.command()
     # async def MeasureVengefulsDick(self, ctx):
