@@ -1,6 +1,7 @@
 import discord
 import json
 from discord.ext import commands
+from discord.utils import get
 
 class Moderation(commands.Cog):
 
@@ -27,11 +28,23 @@ class Moderation(commands.Cog):
 
 
 
-    # @commands.command() #Adding removing roles from a User
-    # @commands.has_permissions(manage_roles=True)
-    # async def role(self, ctx, member : discord.Member, *, roles):
-    #     await ctx.send(f'Changed roles for {member}')
-    #     await ctx.send(f'{roles}')
+    @commands.command() #Adding removing roles from a User
+    @commands.has_permissions(manage_roles=True)
+    async def role(self, ctx, member : discord.Member, *, roles):
+        roles_to_add = discord.utils.get(member.guild.roles, name=roles)
+        #print(roles_to_add)
+        print(f'{member} has {member.roles}')
+
+        #user_roles = discord.utils.find(lambda r: r.name == roles_to_add, ctx.message.server.roles)
+
+        if roles_to_add in member.roles:
+            await member.remove_roles(roles_to_add)
+            await ctx.send(f'Changed roles for {member} : -{roles}')
+
+        else:
+            await member.add_roles(roles_to_add)
+            await ctx.send(f'Changed roles for {member} : +{roles}')
+
 
 
 
