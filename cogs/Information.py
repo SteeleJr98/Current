@@ -4,7 +4,8 @@ from discord.ext import commands
 
 
 
-Version = discord.Game('Snapshot 3.1.0')
+Version = discord.Game('Snapshot 3.1.1')
+Game = discord.Game('Hey Look I\'m A Bot')
 
 class Information(commands.Cog):
 
@@ -13,7 +14,7 @@ class Information(commands.Cog):
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.client.change_presence(status=discord.Status.online, activity=Version)
+        await self.client.change_presence(status=discord.Status.online, activity=Game)
         print(f'Bot is online running version {Version}')
 
 
@@ -31,6 +32,13 @@ class Information(commands.Cog):
     @commands.command()
     async def version(self, ctx):
         await ctx.send(Version)
+
+
+    @commands.command(aliases=['server'])
+    async def helpserver(self, ctx):
+        await ctx.author.send("https://discord.gg/ffwhQJu")
+        await ctx.send('Sent you the link :3')
+
 
 
     @commands.command()
@@ -93,10 +101,11 @@ class Information(commands.Cog):
 
             embed4.set_author(name='Misc')
             embed4.add_field(name='help', value='sends you this message. Usage: help', inline=False)
+            embed4.add_field(name='Support Server', value='Sends you a link to the official support server. Usage: server', inline=False)
             embed4.add_field(name='DM Support', value='To use bot commands within a direct message with the bot you must use the prefix "&"', inline=False)
 
             await ctx.author.send(embed=embed4)
-            await ctx.send('Check your DMs <:Steele_Wink:583104217892388865>')
+            await ctx.send('Check your DMs <:SteeleWink:641527508453425152>')
 
 
 
