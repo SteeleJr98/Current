@@ -23,6 +23,22 @@ class Moderation(commands.Cog):
         await member.kick(reason=reason)
         await ctx.send(f'User {member} was kicked with reason: {reason}')
 
+
+
+
+
+    # @commands.command() #Adding removing roles from a User
+    # @commands.has_permissions(manage_roles=True)
+    # async def role(self, ctx, member : discord.Member, *, roles):
+    #     await ctx.send(f'Changed roles for {member}')
+    #     await ctx.send(f'{roles}')
+
+
+
+
+
+
+
     @commands.command() #command to ban user with response of user and reason
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
