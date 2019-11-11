@@ -4,8 +4,8 @@ from discord.ext import commands
 
 
 
-Version = discord.Game('Snapshot 3.1.1')
-Game = discord.Game('Hey Look I\'m A Bot')
+Version = discord.Game('Snapshot 3.2.0')
+Game = discord.Game('Snapshot 3.2.0')
 
 class Information(commands.Cog):
 
