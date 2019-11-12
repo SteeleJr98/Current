@@ -32,18 +32,28 @@ class Moderation(commands.Cog):
     @commands.has_permissions(manage_roles=True)
     async def role(self, ctx, member : discord.Member, *, roles):
         roles_to_add = discord.utils.get(member.guild.roles, name=roles)
+
         #print(roles_to_add)
-        print(f'{member} has {member.roles}')
+        #print(f'{member} has {member.roles}')
 
         #user_roles = discord.utils.find(lambda r: r.name == roles_to_add, ctx.message.server.roles)
 
+
+        print(several_roles)
+
         if roles_to_add in member.roles:
-            await member.remove_roles(roles_to_add)
-            await ctx.send(f'Changed roles for {member} : -{roles}')
+            try:
+                await member.remove_roles(roles_to_add)
+                await ctx.send(f'Changed roles for {member} : -{roles}')
+            except discord.errors.Forbidden:
+                await ctx.send('I don\'t have permission to change that role')
 
         else:
-            await member.add_roles(roles_to_add)
-            await ctx.send(f'Changed roles for {member} : +{roles}')
+            try:
+                await member.add_roles(roles_to_add)
+                await ctx.send(f'Changed roles for {member} : +{roles}')
+            except discord.errors.Forbidden:
+                await ctx.send('I don\'t have permission to change that role')
 
 
 
