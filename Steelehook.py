@@ -10,6 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
+
+OWNER_ID = os.getenv('OWNERID')
+
+
+
 def get_prefix(client, message):
     with open('prefixes.json', 'r') as f:
         prefixes = json.load(f)
@@ -31,22 +36,24 @@ def get_prefix(client, message):
 client = commands.Bot(command_prefix = get_prefix, case_insensitive=True)
 client.remove_command('help')
 
+client.owner_id = int(OWNER_ID)
+
 
 
 
 
 @client.command()
-@commands.has_permissions(manage_guild=True)
+@commands.is_owner()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
 
 @client.command()
-@commands.has_permissions(manage_guild=True)
+@commands.is_owner()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
 
 @client.command()
-@commands.has_permissions(manage_guild=True)
+@commands.is_owner()
 async def reload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
     client.load_extension(f'cogs.{extension}')
@@ -60,7 +67,7 @@ for filename in os.listdir('cogs'):
 
 
 @client.command()
-@commands.has_permissions(manage_guild=True)
+@commands.is_owner()
 async def shutdown(ctx):
     def check(m):
         return m.channel == ctx.message.channel and m.author == ctx.message.author
@@ -117,8 +124,8 @@ async def on_member_remove(member):
 async def on_command_error(ctx, error):
     if isinstance(error, commands.MissingRequiredArgument):
         await ctx.send('Please include all required arguments.')
-    elif isinstance(error, commands.CommandNotFound):
-        await ctx.send('Invalid command used.')
+    #elif isinstance(error, commands.CommandNotFound):
+        #await ctx.send('Invalid command used.')
     elif isinstance(error, commands.MissingPermissions):
         await ctx.send('You do not have permission to use this command!')
     #elif isinstance(error, discord.errors.Forbidden):
@@ -137,4 +144,3 @@ async def on_command_error(ctx, error):
 
 
 client.run(TOKEN) #bot token (a secret)
-#testing the github bot
