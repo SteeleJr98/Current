@@ -1,23 +1,43 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
+from itertools import cycle
+import asyncio
+import random
 
 
 
+status = (['Status 1', 'Status 2', 'Status 3', 'Generating Crash Log', 'Reticulating Splines'])
+Version = 'Snapshot 3.2.0'
 
-Version = discord.Game('Snapshot 3.2.0')
-Game = discord.Game('Snapshot 3.2.0')
 
 class Information(commands.Cog):
 
+
+
     def __init__(self, client):
         self.client = client
+        self.change_status.start()
+
+
+
+
+    @tasks.loop(seconds=5.0)
+    async def change_status(self):
+        await self.client.change_presence(status=discord.Status.online, activity=discord.Game(random.choice(status)))
+
+
+    @change_status.before_loop
+    async def before_changing(self):
+        await self.client.wait_until_ready()
+
+
+
+
+
 
     @commands.Cog.listener()
     async def on_ready(self):
-        await self.client.change_presence(status=discord.Status.online, activity=Game)
         print(f'Bot is online running version {Version}')
-
-
 
 
 
@@ -106,7 +126,6 @@ class Information(commands.Cog):
 
             await ctx.author.send(embed=embed4)
             await ctx.send('Check your DMs <:SteeleWink:641527508453425152>')
-
 
 
 
