@@ -6,7 +6,12 @@ import random
 
 
 
-status = (['Generating Crash Log', 'Reticulating Splines', 'Roasting Plumbers', 'Unfreezing, One Moment', 'Please hang up and try your call again', 'Watching You Masticate', 'Monching Leaves', 'Laser + Dino = Perfection'])
+status = (['Generating Crash Log', 'Reticulating Splines',
+            'Roasting Plumbers', 'Unfreezing, One Moment',
+            'Please hang up and try your call again',
+            'Watching You Masticate', 'Monching Leaves',
+            'Laser + Dino = Perfection'])
+
 Version = 'Snapshot 3.2.0'
 
 
@@ -78,17 +83,17 @@ class Information(commands.Cog):
 
             await ctx.author.send(embed=embed)
 
-            # embed5 = discord.Embed(
-            #     colour = discord.Colour.purple()
-            # )
-            #
-            # embed5.set_author(name='Music')
-            # embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
-            # embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
-            # embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
-            # embed5.set_footer(text='Only works with YouTube at the moment. Longer videos may cause problems (gonna fix that)')
-            #
-            # await ctx.author.send(embed=embed5)
+            embed5 = discord.Embed(
+                colour = discord.Colour.purple()
+            )
+
+            embed5.set_author(name='Music')
+            embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
+            embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
+            embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
+            embed5.set_footer(text='Only works with YouTube at the moment. Longer videos may cause problems (gonna fix that eventually)')
+
+            await ctx.author.send(embed=embed5)
 
             embed2 = discord.Embed(
                 colour = discord.Colour.orange()
