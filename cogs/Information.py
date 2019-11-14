@@ -6,7 +6,7 @@ import random
 
 
 
-status = (['Status 1', 'Status 2', 'Status 3', 'Generating Crash Log', 'Reticulating Splines'])
+status = (['Generating Crash Log', 'Reticulating Splines', 'Roasting Plumbers', 'Unfreezing, One Moment', 'Please hang up and try your call again', 'Watching You Masticate', 'Monching Leaves', 'Laser + Dino = Perfection'])
 Version = 'Snapshot 3.2.0'
 
 
@@ -21,7 +21,7 @@ class Information(commands.Cog):
 
 
 
-    @tasks.loop(seconds=5.0)
+    @tasks.loop(minutes=5)
     async def change_status(self):
         await self.client.change_presence(status=discord.Status.online, activity=discord.Game(random.choice(status)))
 
