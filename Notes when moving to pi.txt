@@ -1,0 +1,3 @@
+Update file locations to /home/pi/Desktop/Python Bot/Current/
+Uncomment the serial commands
+Update server and role names
