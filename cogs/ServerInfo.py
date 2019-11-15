@@ -35,8 +35,6 @@ class ServerInfo(commands.Cog):
 
     @tasks.loop(seconds=5)
     async def check_members(self):
-        #servers = self.client.guilds
-        #print(servers)
 
         server = discord.utils.get(self.client.guilds, name='Official SteeleHook Server')
         #print(server)
