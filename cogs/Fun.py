@@ -29,9 +29,24 @@ class Fun(commands.Cog):
         await ctx.send(f'Flipping a coin!\nResult: {random.choice(responses)}')
 
     @commands.command() #deletes the command message and sends what the user said
-    async def say(self, ctx, *, message):
-        await ctx.channel.purge(limit=1)
-        await ctx.send(f'{message}')
+    async def say(self, ctx, *, content):
+
+
+
+        if '@everyone' in content:
+            print('Everyone pinged')
+            await ctx.send('I can\'t ping everyone')
+
+        elif '@here' in content:
+            print('Here pinged')
+            await ctx.send('I can\'t ping here')
+
+
+        else:
+
+
+            await ctx.channel.purge(limit=1)
+            await ctx.send(f'{content}')
 
     @commands.command()
     async def derp(self, ctx):
