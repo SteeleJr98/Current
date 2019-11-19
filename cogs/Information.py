@@ -111,11 +111,12 @@ class Information(commands.Cog):
             )
 
             embed3.set_author(name='Moderation')
-            embed3.add_field(name='ban', value='Bans a member from the serevr. Usage: ban (member ID) {reason}', inline=False)
-            embed3.add_field(name='kick', value='Kicks a member from the server Usage: kick (member ID) {reason}', inline=False)
+            embed3.add_field(name='ban', value='Bans a member from the server. Usage: ban (user) {reason}', inline=False)
+            embed3.add_field(name='kick', value='Kicks a member from the server Usage: kick (user) {reason}', inline=False)
             embed3.add_field(name='unban', value='Unbans a memebr from the sevrer. Usage: unban (Member\'s discord tag)', inline=False)
             embed3.add_field(name='clear', value='Removes a number of messages sent in a channel. Usage: clear (Number of messages)', inline=False)
             embed3.add_field(name='changeprefix', value='Changes the bot\'s prefix for the server. Usage: changeprefix (new prefix)', inline=False)
+            embed3.add_field(name='role', value='Adds/removes roles from a user. "+role" adds the role,"-role" removes the role, not specifying +/- toggles the role. Roles are to be separated by a ",". Usage: role (user) (role)', inline=False)
 
             await ctx.author.send(embed=embed3)
 
