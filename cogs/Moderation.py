@@ -21,8 +21,18 @@ class Moderation(commands.Cog):
     @commands.command() #command to kick user with response of user and reason
     @commands.has_permissions(kick_members=True)
     async def kick(self, ctx, member : discord.Member, *, reason=None):
-        await member.kick(reason=reason)
-        await ctx.send(f'User {member} was kicked with reason: {reason}')
+
+        if member == ctx.author:
+            await ctx.send('You can\'t kick yourself')
+
+
+        else:
+            if member.top_role > ctx.author.top_role:
+                await ctx.send('That user is above your top role. You can\'t kick them')
+
+            else:
+                await member.kick(reason=reason)
+                await ctx.send(f'User {member} was kicked with reason: {reason}')
 
 
 
@@ -31,42 +41,75 @@ class Moderation(commands.Cog):
     @commands.command() #Adding removing roles from a User
     @commands.has_permissions(manage_roles=True)
     async def role(self, ctx, member : discord.Member, *, roles):
+        #roles_specified = roles
+
+        #roles_split = roles_specified.split(',')
         roles_to_add = discord.utils.get(member.guild.roles, name=roles)
 
-        #print(roles_to_add)
-        #print(f'{member} has {member.roles}')
+        #print(roles_specified)
 
-        #user_roles = discord.utils.find(lambda r: r.name == roles_to_add, ctx.message.server.roles)
-
-
-        print(several_roles)
-
-        if roles_to_add in member.roles:
-            try:
-                await member.remove_roles(roles_to_add)
-                await ctx.send(f'Changed roles for {member} : -{roles}')
-            except discord.errors.Forbidden:
-                await ctx.send('I don\'t have permission to change that role')
-
-        else:
-            try:
-                await member.add_roles(roles_to_add)
-                await ctx.send(f'Changed roles for {member} : +{roles}')
-            except discord.errors.Forbidden:
-                await ctx.send('I don\'t have permission to change that role')
+        #print(roles_split)
 
 
 
 
+        if roles_to_add == None:
+            await ctx.send(f'Can\'t find role(s): {roles}')
 
+
+        if roles_to_add > ctx.author.top_role:
+            await ctx.send('One or more roles specified are above your top role')
+
+            if roles_to_add in member.roles:
+                try:
+                    await member.remove_roles(roles_to_add)
+                    await ctx.send(f'Changed roles for {member} : -{roles}')
+                except discord.errors.Forbidden:
+                    await ctx.send('I don\'t have permission to change that role')
+
+            else:
+                try:
+                    await member.add_roles(roles_to_add)
+                    await ctx.send(f'Changed roles for {member} : +{roles}')
+                except discord.errors.Forbidden:
+                    await ctx.send('I don\'t have permission to change that role')
 
 
 
     @commands.command() #command to ban user with response of user and reason
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
-        await member.ban(reason=reason)
-        await ctx.send(f'User {member} was banned with reason: {reason}')
+
+
+        if member == ctx.author:
+            await ctx.send('You can\'t ban yourself')
+
+        else:
+            if member.top_role > ctx.author.top_role:
+                await ctx.send('That user is above your top role. You can\'t ban them')
+
+
+            else:
+                await member.ban(reason=reason, delete_message_days=0)
+                await ctx.send(f'User {member} was banned with reason: {reason}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @commands.command() #unban command that requires full discord user name 'Example#1234'
     @commands.has_permissions(ban_members=True)
