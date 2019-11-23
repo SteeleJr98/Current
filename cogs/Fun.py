@@ -28,10 +28,9 @@ class Fun(commands.Cog):
         responses = ['Heads', 'Tails']
         await ctx.send(f'Flipping a coin!\nResult: {random.choice(responses)}')
 
+
     @commands.command() #deletes the command message and sends what the user said
     async def say(self, ctx, *, content):
-
-
 
         if '@everyone' in content:
             print('Everyone pinged')
@@ -41,20 +40,16 @@ class Fun(commands.Cog):
             print('Here pinged')
             await ctx.send('I can\'t ping here')
 
-
         else:
-
-
-            await ctx.channel.purge(limit=1)
+            await ctx.message.delete()
             await ctx.send(f'{content}')
+
+
 
     @commands.command()
     async def derp(self, ctx):
         await ctx.send('<:SteeleDerp:641527755040620554>')
 
-    # @commands.command()
-    # async def MeasureVengefulsDick(self, ctx):
-    #     await ctx.send('Error 404: Dick Not Found.')
 
 
 
