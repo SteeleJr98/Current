@@ -2,3 +2,4 @@ Update file locations to /home/pi/Desktop/Python Bot/Current/ including in moder
 Uncomment the serial commands
 Update server and role names
 /dev/ttyACM0
+move prefixes and .env
