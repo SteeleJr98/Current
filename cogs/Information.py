@@ -12,7 +12,7 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Watching You Masticate', 'Monching Leaves',
             'Laser + Dino = Perfection'])
 
-Version = 'Snapshot 3.2.0'
+Version = 'Snapshot 3.4.0'
 
 
 class Information(commands.Cog):
@@ -117,7 +117,7 @@ class Information(commands.Cog):
             embed3.add_field(name='clear', value='Removes a number of messages sent in a channel. Usage: clear (Number of messages)', inline=False)
             embed3.add_field(name='changeprefix', value='Changes the bot\'s prefix for the server. Usage: changeprefix (new prefix)', inline=False)
             embed3.add_field(name='role', value='Adds/removes roles from a user. "+role" adds the role,"-role" removes the role, not specifying +/- toggles the role. Roles are to be separated by a ",". Usage: role (user) (role)', inline=False)
-
+            embed3.add_field(name='changejoinleave', value='Change the channel that joins/leaves are logged. Usage: changejoinleave (channel) Note: Use "Unset" for (channel) to stop logging', inline=False)
             await ctx.author.send(embed=embed3)
 
 
