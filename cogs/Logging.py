@@ -1,6 +1,6 @@
 import discord
 import json
-import datetime
+from datetime import datetime, timedelta
 import re
 from discord.ext import commands
 
@@ -67,6 +67,27 @@ class Logging(commands.Cog):
     @commands.Cog.listener()
     async def on_member_join(self, member):
 
+        account_age_seconds = ((datetime.utcnow()) - (member.created_at)).total_seconds()
+
+        if account_age_seconds < 604800:
+
+
+            days = int(account_age_seconds // (24 * 3600))
+            account_age_seconds = account_age_seconds % (24 * 3600)
+            hours = int(account_age_seconds // 3600)
+            account_age_seconds %= 3600
+            minutes = int(account_age_seconds // 60)
+            account_age_seconds %= 60
+            seconds = int(account_age_seconds)
+
+            descrip = f'<@{member.id}> {member} \n Account Created {days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago'
+
+        else:
+            descrip = f'<@{member.id}> {member}'
+
+
+
+
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
             channel2 = jandl_id[str(member.guild.id)]
@@ -74,11 +95,13 @@ class Logging(commands.Cog):
         if channel == None:
             pass
 
+
+
         else:
             embed = discord.Embed(title=' ',
-                description=f'<@{member.id}> {member}',
+                description=descrip,
                 colour = discord.Colour.green(),
-                timestamp=datetime.datetime.utcnow()
+                timestamp=datetime.utcnow()
             )
 
             embed.set_author(name='Member Joined', icon_url=member.avatar_url)
@@ -100,10 +123,10 @@ class Logging(commands.Cog):
             embed = discord.Embed(title=' ',
                 description=f'<@{member.id}> {member}',
                 colour = discord.Colour.red(),
-                timestamp=datetime.datetime.utcnow()
+                timestamp=datetime.utcnow()
             )
 
-            embed.set_author(name='Member Joined', icon_url=member.avatar_url)
+            embed.set_author(name='Member Left', icon_url=member.avatar_url)
             embed.set_thumbnail(url=member.avatar_url)
             embed.set_footer(text=f'ID: {member.id}')
             await channel.send(embed=embed)
