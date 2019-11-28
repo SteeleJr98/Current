@@ -51,6 +51,15 @@ class Fun(commands.Cog):
         await ctx.send('<:SteeleDerp:641527755040620554>')
 
 
+    @commands.command()
+    async def cringe(self, ctx, member : discord.Member):
+        await ctx.send(f'**{str(member)[:-5]}** just posted cringe. They will lose subscriber.')
+
+    @commands.command()
+    async def yeet(self, ctx):
+        await ctx.send('(╯°□°）╯︵ ┻━┻')
+
+
 
 
 
