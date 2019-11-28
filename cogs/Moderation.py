@@ -44,7 +44,7 @@ class Moderation(commands.Cog):
         #roles_to_add = discord.utils.get(member.guild.roles, name=roles)
 
 
-        roles_specified = roles #gather the roles specified
+        roles_specified = roles.lower() #gather the roles specified
         roles_split = [r.strip() for r in roles_specified.split(',')] #remove spaces from the beginning of roles and spit the roles separated by ','
 
 
@@ -71,7 +71,7 @@ class Moderation(commands.Cog):
         #print(f'Roles to toggle: {roles_to_toggle}')
 
         for role in roles_to_add:
-            role_to_add = discord.utils.get(member.guild.roles, name=role)
+            role_to_add = discord.utils.find(lambda m: m.name.lower() == role, member.guild.roles)
             #print(role_to_add)
             if role_to_add == None:
                 roles_not_found.append(role)
@@ -90,7 +90,7 @@ class Moderation(commands.Cog):
                     roles_missing_permissions.append(role)
 
         for role in roles_to_remove:
-            role_to_remove = discord.utils.get(member.guild.roles, name=role)
+            role_to_remove = discord.utils.find(lambda m: m.name.lower() == role, member.guild.roles)
             #print(role_to_remove)
             if role_to_remove == None:
                 roles_not_found.append(role)
@@ -110,7 +110,7 @@ class Moderation(commands.Cog):
 
 
         for role in roles_to_toggle:
-            role_to_toggle = discord.utils.get(member.guild.roles, name=role)
+            role_to_toggle = discord.utils.find(lambda m: m.name.lower() == role, member.guild.roles)
             #print(role_to_toggle)
             if role_to_toggle == None:
                 roles_not_found.append(role)
