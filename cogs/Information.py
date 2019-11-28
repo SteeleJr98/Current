@@ -12,7 +12,7 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Watching You Masticate', 'Monching Leaves',
             'Laser + Dino = Perfection'])
 
-Version = 'Snapshot 3.4.0'
+Version = 'Snapshot 3.5.1'
 
 
 class Information(commands.Cog):
@@ -79,7 +79,9 @@ class Information(commands.Cog):
             embed.add_field(name='8ball', value='Ask a question and a yes or no responce. Usage: 8ball (question)', inline=False)
             embed.add_field(name='coinflip', value='Heads or tails? Let the bot decide. Usage: coinflip', inline=False)
             embed.add_field(name='say', value='Make the bot say anything you like. Usage: say (message)', inline=False)
-            embed.add_field(name='derp', value='Dose a derp. Usage: derp')
+            embed.add_field(name='derp', value='Does a derp. Usage: derp')
+            embed.add_field(name='cringe', value='Who posted cringe? Usage: cringe (user)', inline=False)
+            embed.add_field(name='yeet', value='YEET. Usage yeet', inline=False)
 
             await ctx.author.send(embed=embed)
 
@@ -91,7 +93,10 @@ class Information(commands.Cog):
             embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
             embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
             embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
-            embed5.set_footer(text='Only works with YouTube at the moment. Longer videos may cause problems (gonna fix that eventually)')
+            embed5.add_field(name='pause', value='Pauses the audio the bot is playing. Usage: pause', inline=False)
+            embed5.add_field(name='resume', value='Resumes the audio if it\'s paused. Usage: resume', inline=False)
+            embed5.add_field(name='stop', value='Stops the audio playing and disconnects the bot from the voice channel. Usage: stop', inline=False)
+            embed5.set_footer(text='Only works with YouTube at the moment.')
 
             await ctx.author.send(embed=embed5)
 
@@ -113,7 +118,7 @@ class Information(commands.Cog):
             embed3.set_author(name='Moderation')
             embed3.add_field(name='ban', value='Bans a member from the server. Usage: ban (user) {reason}', inline=False)
             embed3.add_field(name='kick', value='Kicks a member from the server Usage: kick (user) {reason}', inline=False)
-            embed3.add_field(name='unban', value='Unbans a memebr from the sevrer. Usage: unban (Member\'s discord tag)', inline=False)
+            embed3.add_field(name='unban', value='Unbans a memebr from the sevrer. Usage: unban (User\'s discord tag)', inline=False)
             embed3.add_field(name='clear', value='Removes a number of messages sent in a channel. Usage: clear (Number of messages)', inline=False)
             embed3.add_field(name='changeprefix', value='Changes the bot\'s prefix for the server. Usage: changeprefix (new prefix)', inline=False)
             embed3.add_field(name='role', value='Adds/removes roles from a user. "+role" adds the role,"-role" removes the role, not specifying +/- toggles the role. Roles are to be separated by a ",". Usage: role (user) (role)', inline=False)
