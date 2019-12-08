@@ -46,16 +46,16 @@ class Fun(commands.Cog):
 
 
 
-    @commands.command()
+    @commands.command() #send the derp emote
     async def derp(self, ctx):
         await ctx.send('<:SteeleDerp:641527755040620554>')
 
 
-    @commands.command()
+    @commands.command() #str(member)[:-5] says the user mentioned removing the descriminator (always 5 characters)
     async def cringe(self, ctx, member : discord.Member):
         await ctx.send(f'**{str(member)[:-5]}** just posted cringe. They will lose subscriber.')
 
-    @commands.command()
+    @commands.command() #just a reply message
     async def yeet(self, ctx):
         await ctx.send('(╯°□°）╯︵ ┻━┻')
 

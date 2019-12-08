@@ -12,7 +12,7 @@ class Logging(commands.Cog):
 
 
 
-    @commands.Cog.listener()
+    @commands.Cog.listener() #when the bot joins a server put the server ID in the jandl_id file with the value "Not Set"
     async def on_guild_join(self, guild):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
@@ -20,7 +20,7 @@ class Logging(commands.Cog):
         with open('jandl_id.json', 'w') as f:
             json.dump(jandl_id, f, indent=4)
 
-    @commands.Cog.listener()
+    @commands.Cog.listener() #when the bot leaves a server remove the the server's ID from the jandl file
     async def on_guild_remove(self, guild):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
@@ -32,7 +32,7 @@ class Logging(commands.Cog):
 
 
 
-    @commands.command(aliases=['changejandl'])
+    @commands.command(aliases=['changejandl']) #change the value beside the server's ID to a specific channel in the jandl file
     @commands.has_permissions(manage_guild=True)
     async def changejoinleave(self, ctx, channel):
 
@@ -49,14 +49,15 @@ class Logging(commands.Cog):
         else:
             #channelid = (((channel.replace('#', '')).replace('<', '')).replace('>', ''))
 
-            channel = re.sub('[<#>]', '', channel)
+            channel = re.sub('[<#>]', '', channel) #remove the characters <, #, and > from the channel so to just get the channel ID
 
             with open('jandl_id.json', 'r') as f:
                 jandl_id = json.load(f)
             jandl_id[str(ctx.guild.id)] = channel
 
             with open('jandl_id.json', 'w') as f:
-                json.dump(jandl_id, f, indent=4)
+                json.dump(jandl_id, f, indent=4) #change the value of linked to the server's ID in the jandl_id file
+
             await ctx.send(f'Joins and leaves channel set to <#{channel}>')
 
 
@@ -64,7 +65,7 @@ class Logging(commands.Cog):
 
 
 
-    @commands.Cog.listener()
+    @commands.Cog.listener() #say when a member joins the server send a mesage to the channel specified in the jandl_id file, if it's not set, do nothing
     async def on_member_join(self, member):
 
         account_age_seconds = ((datetime.utcnow()) - (member.created_at)).total_seconds()
@@ -91,13 +92,13 @@ class Logging(commands.Cog):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
             channel2 = jandl_id[str(member.guild.id)]
-        channel = self.client.get_channel(int(channel2))
-        if channel == None:
+        channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+        if channel == None: #if no channel set for the server, do nothing
             pass
 
 
 
-        else:
+        else: #send this embed to the channel set in the jandl_id file
             embed = discord.Embed(title=' ',
                 description=descrip,
                 colour = discord.Colour.green(),
@@ -109,17 +110,17 @@ class Logging(commands.Cog):
             embed.set_footer(text=f'ID: {member.id}')
             await channel.send(embed=embed)
 
-    @commands.Cog.listener()
+    @commands.Cog.listener() #say when a member leaves the server send a mesage to the channel specified in the jandl_id file, if it's not set, do nothing
     async def on_member_remove(self, member):
 
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
             channel2 = jandl_id[str(member.guild.id)]
-        channel = self.client.get_channel(int(channel2))
-        if channel == None:
+        channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+        if channel == None: #if no channel set for the server, do nothing
             pass
 
-        else:
+        else: #send this embed to the channel set in the jandl_id file
             embed = discord.Embed(title=' ',
                 description=f'<@{member.id}> {member}',
                 colour = discord.Colour.red(),

@@ -141,7 +141,7 @@ class Music(commands.Cog):
         if voice and voice.is_playing():
             voice.stop()
             await ctx.send('Music stopped')
-            await voice.disconnect()
+            #await voice.disconnect()
         else:
             await ctx.send('No music playing.')
 

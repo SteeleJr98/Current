@@ -23,12 +23,12 @@ class Moderation(commands.Cog):
     async def kick(self, ctx, member : discord.Member, *, reason=None):
 
         if member == ctx.author:
-            await ctx.send('You can\'t kick yourself')
+            await ctx.send('You can\'t kick yourself') #if the user mentioned is the same as the command user then don't kick
 
 
         else:
             if member.top_role > ctx.author.top_role:
-                await ctx.send('That user is above your top role. You can\'t kick them')
+                await ctx.send('That user is above your top role. You can\'t kick them') #if the user mentioned has a top role above the highest role of the command user, don't kick
 
             else:
                 await member.kick(reason=reason)
@@ -41,15 +41,12 @@ class Moderation(commands.Cog):
     @commands.command() #Adding removing roles from a User
     @commands.has_permissions(manage_roles=True)
     async def role(self, ctx, member : discord.Member, *, roles):
-        #roles_to_add = discord.utils.get(member.guild.roles, name=roles)
 
 
         roles_specified = roles.lower() #gather the roles specified
         roles_split = [r.strip() for r in roles_specified.split(',')] #remove spaces from the beginning of roles and spit the roles separated by ','
 
 
-        #print(roles_specified)
-        #print(roles_split)
 
 
         roles_to_add = [r[1:] for r in roles_split if r.startswith('+')] #get all the roles that start with a '+'
@@ -65,29 +62,28 @@ class Moderation(commands.Cog):
         roles_missing_permissions = []
         roles_changed = []
 
-        #print(f'Roles to add: {roles_to_add}')
-        #print(f'Roles to remove: {roles_to_remove}')
-        #print(f'All Roles: {all_roles}')
-        #print(f'Roles to toggle: {roles_to_toggle}')
+
 
         for role in roles_to_add:
-            role_to_add = discord.utils.find(lambda m: m.name.lower() == role, member.guild.roles)
+            role_to_add = discord.utils.find(lambda m: m.name.lower() == role, member.guild.roles) #get the actual role from the server and assign it to the role mentioned
             #print(role_to_add)
-            if role_to_add == None:
+            if role_to_add == None: #if the role doesn't exist add the role from the command to the list of errored role list
                 roles_not_found.append(role)
             else:
-                if role_to_add < ctx.author.top_role:
+                if role_to_add < ctx.author.top_role: #check if a role is above the highest role from the command user, if it is, add it to the forbidden list
                     try:
-                        if role_to_add not in member.roles:
+                        if role_to_add not in member.roles: #check if the user mentioned has the role if no, give the user the role and add it to the added roles list
                             await member.add_roles(role_to_add)
                             roles_changed.append('+'+role)
                         else:
-                            role_errors_adding.append(role)
+                            role_errors_adding.append(role) #if the bot can't change the role because of permissions, add the role to the missing permissions list
                     except discord.errors.Forbidden:
                         roles_missing_permissions.append(role)
 
                 else:
                     roles_missing_permissions.append(role)
+
+        #the comments for the other roles are close to the same and I'm too lazy to add those comments o3o
 
         for role in roles_to_remove:
             role_to_remove = discord.utils.find(lambda m: m.name.lower() == role, member.guild.roles)
@@ -159,80 +155,22 @@ class Moderation(commands.Cog):
 
 
 
-        #testing sending messages based on added roles
-
-        # if not role_errors:
-        #     await ctx.send(f'Added roles: {roles_added2.join(roles_added)} to {member}')
-        # else:
-        #     if not roles_added:
-        #         await ctx.send(f'User already had role(s): {role_errors2.join(role_errors)}')
-        #
-        #     else:
-        #         await ctx.send(f'Added roles: {roles_added2.join(roles_added)} to {member}. User already had role(s): {role_errors2.join(role_errors)}')
-        #
-        # if roles_not_found:
-        #     await ctx.send(f'Couldn\'t find role(s): {roles_not_found2.join(roles_not_found)}')
-
-
-
-        #old role command
-
-
-        # if roles_to_add == None:
-        #     await ctx.send(f'Can\'t find role(s): {roles}')
-        #
-        #
-        # if roles_to_add > ctx.author.top_role:
-        #     await ctx.send('One or more roles specified are above your top role')
-        #
-        #     if roles_to_add in member.roles:
-        #         try:
-        #             await member.remove_roles(roles_to_add)
-        #             await ctx.send(f'Changed roles for {member} : -{roles}')
-        #         except discord.errors.Forbidden:
-        #             await ctx.send('I don\'t have permission to change that role')
-        #
-        #     else:
-        #         try:
-        #             await member.add_roles(roles_to_add)
-        #             await ctx.send(f'Changed roles for {member} : +{roles}')
-        #         except discord.errors.Forbidden:
-        #             await ctx.send('I don\'t have permission to change that role')
-
-
-
     @commands.command() #command to ban user with response of user and reason
     @commands.has_permissions(ban_members=True)
     async def ban(self, ctx, member : discord.Member, *, reason=None):
 
 
         if member == ctx.author:
-            await ctx.send('You can\'t ban yourself')
+            await ctx.send('You can\'t ban yourself') #if the user mentioned is the same as the command user then don't ban
 
         else:
             if member.top_role > ctx.author.top_role:
-                await ctx.send('That user is above your top role. You can\'t ban them')
+                await ctx.send('That user is above your top role. You can\'t ban them') #if the user mentioned has a top role above the highest role of the command user, don't ban
 
 
             else:
-                await member.ban(reason=reason, delete_message_days=0)
+                await member.ban(reason=reason, delete_message_days=0) #ban the user and don't delete any messages from the user
                 await ctx.send(f'User {member} was banned with reason: {reason}')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -250,11 +188,7 @@ class Moderation(commands.Cog):
                 await ctx.send(f'User {member} was unbanned')
                 return
 
-    # @commands.command() #this does not work to unban
-    # @commands.has_permissions(ban_members=True)
-    # async def unban2(self, ctx, member : discord.Member):
-    #     await ctx.guild.unban(member)
-    #     await ctx.send (f'User {member} was unbanned')
+
 
     @commands.command()
     @commands.has_permissions(manage_guild=True)

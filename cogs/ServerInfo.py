@@ -19,15 +19,6 @@ class ServerInfo(commands.Cog):
 
 
 
-    # @commands.command()
-    # async def check_members(self, ctx, *, member_role):
-    #     print('gonna do the thing now')
-    #     thing = discord.utils.get(ctx.author.guild.roles, name=member_role)
-    #
-    #     print(thing)
-    #     thing2 = thing.members
-    #     print(thing2)
-    #     await ctx.send(len(thing2))
 
 
 

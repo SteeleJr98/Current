@@ -10,9 +10,9 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Roasting Plumbers', 'Unfreezing, One Moment',
             'Please hang up and try your call again',
             'Watching You Masticate', 'Monching Leaves',
-            'Laser + Dino = Perfection'])
+            'Laser + Dino = Perfection']) #list of statuses the bot will use
 
-Version = 'Snapshot 3.5.1'
+Version = 'Snapshot 3.5.2' #version number
 
 
 class Information(commands.Cog):
@@ -25,22 +25,18 @@ class Information(commands.Cog):
 
 
 
-
-    @tasks.loop(minutes=5)
+    @tasks.loop(minutes=5) #update the status every 5 minutes
     async def change_status(self):
         await self.client.change_presence(status=discord.Status.online, activity=discord.Game(random.choice(status)))
 
 
-    @change_status.before_loop
+    @change_status.before_loop #wait until the bot is ready before starting the change status loop
     async def before_changing(self):
         await self.client.wait_until_ready()
 
 
 
-
-
-
-    @commands.Cog.listener()
+    @commands.Cog.listener() #when the bot is ready to act print the version number in the console
     async def on_ready(self):
         print(f'Bot is online running version {Version}')
 
@@ -50,25 +46,24 @@ class Information(commands.Cog):
     async def ping(self, ctx):
         await ctx.send(f'Pong! Latency: {round(self.client.latency * 1000)}ms.')
 
-    # @commands.command()
-    # async def ping2(self, ctx):
-    #     await ctx.send('responding from a cog')
 
-    @commands.command()
+
+    @commands.command() #replies with the version number
     async def version(self, ctx):
         await ctx.send(Version)
 
 
-    @commands.command(aliases=['server'])
+
+    @commands.command(aliases=['server']) #DMs the official server link to the command user
     async def helpserver(self, ctx):
         await ctx.author.send("https://discord.gg/ffwhQJu")
         await ctx.send('Sent you the link :3')
 
 
 
-    @commands.command()
+    @commands.command() #DMs the help list to the command user
     async def help(self, ctx):
-        async with ctx.typing():
+        async with ctx.typing(): #appear as if typing in the channel the command is used in
 
             embed = discord.Embed(
                 colour = discord.Colour.green()
