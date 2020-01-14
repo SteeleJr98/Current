@@ -27,8 +27,8 @@ class Moderation(commands.Cog):
 
 
         else:
-            if member.top_role > ctx.author.top_role:
-                await ctx.send('That user is above your top role. You can\'t kick them') #if the user mentioned has a top role above the highest role of the command user, don't kick
+            if member.top_role >= ctx.author.top_role:
+                await ctx.send('That user is at or above your top role. You can\'t kick them') #if the user mentioned has a top role above the highest role of the command user, don't kick
 
             else:
                 await member.kick(reason=reason)
@@ -164,8 +164,8 @@ class Moderation(commands.Cog):
             await ctx.send('You can\'t ban yourself') #if the user mentioned is the same as the command user then don't ban
 
         else:
-            if member.top_role > ctx.author.top_role:
-                await ctx.send('That user is above your top role. You can\'t ban them') #if the user mentioned has a top role above the highest role of the command user, don't ban
+            if member.top_role >= ctx.author.top_role:
+                await ctx.send('That user is at or above your top role. You can\'t ban them') #if the user mentioned has a top role above the highest role of the command user, don't ban
 
 
             else:
