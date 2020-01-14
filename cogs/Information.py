@@ -12,7 +12,7 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Watching You Masticate', 'Monching Leaves',
             'Laser + Dino = Perfection']) #list of statuses the bot will use
 
-Version = 'Snapshot 3.5.2' #version number
+Version = 'Snapshot 3.5.3' #version number
 
 
 class Information(commands.Cog):

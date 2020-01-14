@@ -60,6 +60,13 @@ class Fun(commands.Cog):
         await ctx.send('(╯°□°）╯︵ ┻━┻')
 
 
+    @commands.command()
+    async def test(self, ctx):
+        user = self.client.get_user(555470319998074886)
+        await user.send('test')
+        await ctx.send(f'message sent to {user}')
+
+
 
 
 
