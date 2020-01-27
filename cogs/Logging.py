@@ -16,7 +16,7 @@ class Logging(commands.Cog):
     async def on_guild_join(self, guild):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
-        jandl_id[str(guild.id)] = 'Not Set'
+        jandl_id[str(guild.id)] = ''
         with open('jandl_id.json', 'w') as f:
             json.dump(jandl_id, f, indent=4)
 
