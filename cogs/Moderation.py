@@ -152,25 +152,36 @@ class Moderation(commands.Cog):
 
 
 
+    @commands.command()
+    async def fetch(self, ctx, user : discord.User):
+        member = await self.client.fetch_user(user)
+        await ctx.send(member)
+
+
+
 
 
 
     @commands.command() #command to ban user with response of user and reason
     @commands.has_permissions(ban_members=True)
-    async def ban(self, ctx, member : discord.Member, *, reason=None):
+    async def ban(self, ctx, user : discord.User, *, reason=None):
 
 
-        if member == ctx.author:
-            await ctx.send('You can\'t ban yourself') #if the user mentioned is the same as the command user then don't ban
+        member = ctx.guild.get_member(user.id)
 
-        else:
-            if member.top_role >= ctx.author.top_role:
-                await ctx.send('That user is at or above your top role. You can\'t ban them') #if the user mentioned has a top role above the highest role of the command user, don't ban
-
-
+        if member:
+            if member == ctx.author:
+                await ctx.send('You can\'t ban yourself')
             else:
-                await member.ban(reason=reason, delete_message_days=0) #ban the user and don't delete any messages from the user
-                await ctx.send(f'User {member} was banned with reason: {reason}')
+                if member.top_role >= ctx.author.top_role:
+                    await ctx.send('That user is at or above your top role. You can\'t ban them.')
+                else:
+                    await member.ban(reason=reason, delete_message_days=0)
+                    await ctx.send(f'{user} was banned for reason: {reason}')
+        else:
+            await ctx.guild.ban(discord.Object(id=user.id), reason=reason, delete_message_days=0)
+            await ctx.send(f'{user} was banned for reason: {reason}')
+
 
 
 
