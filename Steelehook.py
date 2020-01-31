@@ -46,11 +46,13 @@ client.owner_id = int(OWNER_ID)
 @commands.is_owner()
 async def load(ctx, extension):
     client.load_extension(f'cogs.{extension}')
+    await ctx.send(f'Cog "{extension}" has been loaded.')
 
 @client.command()
 @commands.is_owner()
 async def unload(ctx, extension):
     client.unload_extension(f'cogs.{extension}')
+    await ctx.send(f'Cog "{extension}" has been unloaded.')
 
 @client.command()
 @commands.is_owner()
