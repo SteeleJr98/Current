@@ -16,7 +16,7 @@ class Logging(commands.Cog):
     async def on_guild_join(self, guild):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
-        jandl_id[str(guild.id)] = ''
+        jandl_id[str(guild.id)] = None
         with open('jandl_id.json', 'w') as f:
             json.dump(jandl_id, f, indent=4)
 
@@ -40,7 +40,7 @@ class Logging(commands.Cog):
         if channel == 'Unset':
             with open('jandl_id.json', 'r') as f:
                 jandl_id = json.load(f)
-            jandl_id[str(ctx.guild.id)] = channel
+            jandl_id[str(ctx.guild.id)] = None
 
             with open('jandl_id.json', 'w') as f:
                 json.dump(jandl_id, f, indent=4)
@@ -70,6 +70,7 @@ class Logging(commands.Cog):
 
         account_age_seconds = ((datetime.utcnow()) - (member.created_at)).total_seconds()
 
+
         if account_age_seconds < 604800:
 
 
@@ -92,23 +93,29 @@ class Logging(commands.Cog):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
             channel2 = jandl_id[str(member.guild.id)]
-        channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
-        if channel == None: #if no channel set for the server, do nothing
+
+
+        if channel2 == None:
             pass
+        else:
+            channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+            if channel == None: #if no channel set for the server, do nothing
+                pass
 
 
 
-        else: #send this embed to the channel set in the jandl_id file
-            embed = discord.Embed(title=' ',
-                description=descrip,
-                colour = discord.Colour.green(),
-                timestamp=datetime.utcnow()
-            )
+            else: #send this embed to the channel set in the jandl_id file
+                embed = discord.Embed(title=' ',
+                    description=descrip,
+                    colour = discord.Colour.green(),
+                    timestamp=datetime.utcnow()
+                )
 
-            embed.set_author(name='Member Joined', icon_url=member.avatar_url)
-            embed.set_thumbnail(url=member.avatar_url)
-            embed.set_footer(text=f'ID: {member.id}')
-            await channel.send(embed=embed)
+                embed.set_author(name='Member Joined', icon_url=member.avatar_url)
+                embed.set_thumbnail(url=member.avatar_url)
+                embed.set_footer(text=f'ID: {member.id}')
+                await channel.send(embed=embed)
+
 
     @commands.Cog.listener() #say when a member leaves the server send a mesage to the channel specified in the jandl_id file, if it's not set, do nothing
     async def on_member_remove(self, member):
@@ -116,21 +123,25 @@ class Logging(commands.Cog):
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
             channel2 = jandl_id[str(member.guild.id)]
-        channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
-        if channel == None: #if no channel set for the server, do nothing
+
+        if channel2 == None:
             pass
+        else:
+            channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+            if channel == None: #if no channel set for the server, do nothing
+                pass
 
-        else: #send this embed to the channel set in the jandl_id file
-            embed = discord.Embed(title=' ',
-                description=f'<@{member.id}> {member}',
-                colour = discord.Colour.red(),
-                timestamp=datetime.utcnow()
-            )
+            else: #send this embed to the channel set in the jandl_id file
+                embed = discord.Embed(title=' ',
+                    description=f'<@{member.id}> {member}',
+                    colour = discord.Colour.red(),
+                    timestamp=datetime.utcnow()
+                )
 
-            embed.set_author(name='Member Left', icon_url=member.avatar_url)
-            embed.set_thumbnail(url=member.avatar_url)
-            embed.set_footer(text=f'ID: {member.id}')
-            await channel.send(embed=embed)
+                embed.set_author(name='Member Left', icon_url=member.avatar_url)
+                embed.set_thumbnail(url=member.avatar_url)
+                embed.set_footer(text=f'ID: {member.id}')
+                await channel.send(embed=embed)
 
 
 
