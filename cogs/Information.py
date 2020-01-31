@@ -12,7 +12,7 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Watching You Masticate', 'Monching Leaves',
             'Laser + Dino = Perfection']) #list of statuses the bot will use
 
-Version = 'SteeleHook v3.6.0' #version number
+Version = 'Snapshot 3.7.0' #version number
 
 
 class Information(commands.Cog):
