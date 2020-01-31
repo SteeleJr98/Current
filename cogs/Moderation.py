@@ -2,6 +2,7 @@ import discord
 import json
 from discord.ext import commands
 from discord.utils import get
+from datetime import datetime, timedelta, date
 
 class Moderation(commands.Cog):
 
@@ -177,10 +178,20 @@ class Moderation(commands.Cog):
                     await ctx.send('That user is at or above your top role. You can\'t ban them.')
                 else:
                     await member.ban(reason=reason, delete_message_days=0)
-                    await ctx.send(f'{user} was banned for reason: {reason}')
+                    banned_message = f'User {user} was banned'
+                    reason_to_send = f'for reason: {reason}'
+                    if reason:
+                        await ctx.send(f'{banned_message} '+f'{reason_to_send}')
+                    else:
+                        await ctx.send(f'{banned_message}.')
         else:
             await ctx.guild.ban(discord.Object(id=user.id), reason=reason, delete_message_days=0)
-            await ctx.send(f'{user} was banned for reason: {reason}')
+            banned_message = f'User {user} was banned'
+            reason_to_send = f'for reason: {reason}'
+            if reason:
+                await ctx.send(f'{banned_message} '+f'{reason_to_send}')
+            else:
+                await ctx.send(f'{banned_message}.')
 
 
 
@@ -201,7 +212,7 @@ class Moderation(commands.Cog):
 
 
 
-    @commands.command()
+    @commands.command() #change the prefix for the bot
     @commands.has_permissions(manage_guild=True)
     async def changeprefix(self, ctx, prefix):
         #print('Attempting Change')
@@ -212,6 +223,73 @@ class Moderation(commands.Cog):
         with open('prefixes.json', 'w') as f:
             json.dump(prefixes, f, indent=4)
         await ctx.send(f'Prefix changed to: {prefix}')
+
+
+
+
+
+
+
+
+
+    #idk what's going on now
+
+
+
+
+
+
+
+    @commands.command() #A simple whois command
+    async def whois(self, ctx, member : discord.Member):
+
+
+        listed_roles = []
+
+        for role in member.roles:
+            listed_roles.append(role.mention)
+
+        listed_roles.pop(0)
+        roles_changed = ' '
+        roles_changed2 = ''
+        roles_changed2 = roles_changed.join(listed_roles)
+
+
+
+        embed = discord.Embed(
+            title=' ',
+            description=f'<@{member.id}>',
+            colour = discord.Colour.green(),
+            timestamp=datetime.utcnow()
+        )
+
+        embed.set_author(name=member, icon_url=member.avatar_url)
+        embed.set_thumbnail(url=member.avatar_url)
+        embed.set_footer(text=f'ID: {member.id}')
+
+        embed.add_field(name='Date Joined', value=f'{((member.joined_at).strftime("%a, %B %d, %Y").lstrip("0").replace(" 0", " "))} \n {((member.joined_at).strftime("%I:%M %p").lstrip("0").replace(" 0", " "))}', inline=True)
+        embed.add_field(name='Account Made', value=f'{((member.created_at).strftime("%a, %B %d, %Y").lstrip("0").replace(" 0", " "))} \n {((member.created_at).strftime("%I:%M %p").lstrip("0").replace(" 0", " "))}', inline=True)
+        embed.add_field(name='Roles', value=roles_changed2, inline=False)
+
+
+
+
+
+
+        await ctx.send(embed=embed)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
