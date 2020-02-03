@@ -2,6 +2,7 @@ import discord
 import json
 from datetime import datetime, timedelta
 import re
+import asyncio
 from discord.ext import commands
 
 class Logging(commands.Cog):
@@ -117,8 +118,45 @@ class Logging(commands.Cog):
                 await channel.send(embed=embed)
 
 
+
+    # @commands.Cog.listener()
+    # async def on_member_ban(self, guild, member):
+    #
+    #     with open('jandl_id.json', 'r') as f:
+    #         jandl_id = json.load(f)
+    #         channel2 = jandl_id[str(member.guild.id)]
+    #
+    #     if channel2 == None:
+    #         pass
+    #     else:
+    #         channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+    #         if channel == None: #if no channel set for the server, do nothing
+    #             pass
+    #
+    #         else: #send this embed to the channel set in the jandl_id file
+    #
+    #             await channel.send('Aaaaaa')
+
+
+
+
+
     @commands.Cog.listener() #say when a member leaves the server send a mesage to the channel specified in the jandl_id file, if it's not set, do nothing
     async def on_member_remove(self, member):
+
+        banned_users = await member.guild.bans()
+        if len(banned_users) == 0:
+            name = 'Member Left'
+        else:
+            for ban_entry in banned_users:
+                user = ban_entry.user
+                if member == user:
+                    name = 'Member Banned'
+                else:
+                    name = 'Member Left'
+
+
+
 
         with open('jandl_id.json', 'r') as f:
             jandl_id = json.load(f)
@@ -132,16 +170,28 @@ class Logging(commands.Cog):
                 pass
 
             else: #send this embed to the channel set in the jandl_id file
+
+
+
+
+
                 embed = discord.Embed(title=' ',
                     description=f'<@{member.id}> {member}',
                     colour = discord.Colour.red(),
                     timestamp=datetime.utcnow()
                 )
 
-                embed.set_author(name='Member Left', icon_url=member.avatar_url)
+                embed.set_author(name=name, icon_url=member.avatar_url)
                 embed.set_thumbnail(url=member.avatar_url)
                 embed.set_footer(text=f'ID: {member.id}')
                 await channel.send(embed=embed)
+
+
+
+    @commands.command()
+    async def bans(self, ctx):
+        banned_users = await ctx.guild.bans()
+        await ctx.send(banned_users)
 
 
 
