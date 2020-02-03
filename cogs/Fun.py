@@ -59,6 +59,10 @@ class Fun(commands.Cog):
     async def yeet(self, ctx):
         await ctx.send('(╯°□°）╯︵ ┻━┻')
 
+    @commands.command()
+    async def yote(self, ctx):
+        await ctx.send('┬─┬ ノ( ゜-゜ノ)')
+
 
     @commands.command()
     async def test(self, ctx):
