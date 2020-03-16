@@ -14,7 +14,7 @@ class Moderation(commands.Cog):
 
 
 
-    @commands.command() #command to purge a number of messages in a channel
+    @commands.command(aliases=['purge']) #command to purge a number of messages in a channel
     @commands.has_permissions(manage_messages=True)
     async def clear(self, ctx, amount : int):
         await ctx.channel.purge(limit=amount+1)
@@ -240,16 +240,62 @@ class Moderation(commands.Cog):
 
 
 
+    # @commands.command() #A simple whois command
+    # async def whois(self, ctx, member : discord.Member):
+    #
+    #
+    #     listed_roles = []
+    #     number_of_roles = 0
+    #
+    #     for role in member.roles:
+    #         listed_roles.append(role.mention)
+    #         number_of_roles = number_of_roles + 1
+    #
+    #     #listed_roles.pop(0)
+    #     #roles_changed = ' '
+    #     #roles_changed2 = ''
+    #     #roles_changed2 = roles_changed.join(listed_roles)
+    #
+    #
+    #
+    #     embed = discord.Embed(
+    #         title=' ',
+    #         description=f'<@{member.id}>',
+    #         colour = discord.Colour.green(),
+    #         timestamp=datetime.utcnow()
+    #     )
+    #
+    #     embed.set_author(name=member, icon_url=member.avatar_url)
+    #     embed.set_thumbnail(url=member.avatar_url)
+    #     embed.set_footer(text=f'ID: {member.id}')
+    #
+    #     embed.add_field(name='Date Joined', value=f'{((member.joined_at).strftime("%a, %B %d, %Y").lstrip("0").replace(" 0", " "))} \n {((member.joined_at).strftime("%I:%M %p").lstrip("0").replace(" 0", " "))}', inline=True)
+    #     embed.add_field(name='Account Made', value=f'{((member.created_at).strftime("%a, %B %d, %Y").lstrip("0").replace(" 0", " "))} \n {((member.created_at).strftime("%I:%M %p").lstrip("0").replace(" 0", " "))}', inline=True)
+    #     embed.add_field(name=f'Roles [{number_of_roles - 1}]', value=roles_changed2, inline=False)
+    #
+    #
+    #
+    #
+    #
+    #
+    #     await ctx.send(embed=embed)
+
+    #this all broke for some reason
+
+
     @commands.command() #A simple whois command
     async def whois(self, ctx, member : discord.Member):
 
 
         listed_roles = []
+        number_of_roles = 0
 
         for role in member.roles:
             listed_roles.append(role.mention)
+            number_of_roles = number_of_roles + 1
 
-        listed_roles.pop(0)
+        #listed_roles.pop(0)
+        listed_roles.remove(listed_roles[0])
         roles_changed = ' '
         roles_changed2 = ''
         roles_changed2 = roles_changed.join(listed_roles)
@@ -269,7 +315,7 @@ class Moderation(commands.Cog):
 
         embed.add_field(name='Date Joined', value=f'{((member.joined_at).strftime("%a, %B %d, %Y").lstrip("0").replace(" 0", " "))} \n {((member.joined_at).strftime("%I:%M %p").lstrip("0").replace(" 0", " "))}', inline=True)
         embed.add_field(name='Account Made', value=f'{((member.created_at).strftime("%a, %B %d, %Y").lstrip("0").replace(" 0", " "))} \n {((member.created_at).strftime("%I:%M %p").lstrip("0").replace(" 0", " "))}', inline=True)
-        embed.add_field(name='Roles', value=roles_changed2, inline=False)
+        embed.add_field(name=f'Roles [{number_of_roles - 1}]', value=roles_changed2, inline=False)
 
 
 
@@ -277,11 +323,6 @@ class Moderation(commands.Cog):
 
 
         await ctx.send(embed=embed)
-
-
-
-
-
 
 
 
