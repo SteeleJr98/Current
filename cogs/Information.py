@@ -4,6 +4,10 @@ from itertools import cycle
 import asyncio
 import random
 
+from .Logging import *
+
+
+
 
 
 status = (['Generating Crash Log', 'Reticulating Splines',
@@ -13,6 +17,9 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Laser + Dino = Perfection']) #list of statuses the bot will use
 
 Version = 'Snapshot 3.7.1' #version number
+
+
+
 
 
 class Information(commands.Cog):
@@ -47,10 +54,22 @@ class Information(commands.Cog):
         await ctx.send(f'Pong! Latency: {round(self.client.latency * 1000)}ms.')
 
 
+        await log_command(self, ctx, name = "ping")
+
+
+
+
+
+
+
+
+
 
     @commands.command() #replies with the version number
     async def version(self, ctx):
         await ctx.send(Version)
+
+        await log_command(self, ctx, name = "version")
 
 
 
@@ -77,6 +96,7 @@ class Information(commands.Cog):
             embed.add_field(name='derp', value='Does a derp. Usage: derp')
             embed.add_field(name='cringe', value='Who posted cringe? Usage: cringe (user)', inline=False)
             embed.add_field(name='yeet', value='YEET. Usage yeet', inline=False)
+            embed.add_field(name='yote', value='Yote... Usage yote', inline=False)
 
             await ctx.author.send(embed=embed)
 
@@ -114,10 +134,11 @@ class Information(commands.Cog):
             embed3.add_field(name='ban', value='Bans a member from the server. Usage: ban (user) {reason}', inline=False)
             embed3.add_field(name='kick', value='Kicks a member from the server Usage: kick (user) {reason}', inline=False)
             embed3.add_field(name='unban', value='Unbans a memebr from the sevrer. Usage: unban (User\'s discord tag)', inline=False)
-            embed3.add_field(name='clear', value='Removes a number of messages sent in a channel. Usage: clear (Number of messages)', inline=False)
+            embed3.add_field(name='clear', value='Removes a number of messages sent in a channel. Usage: clear/purge (Number of messages)', inline=False)
             embed3.add_field(name='changeprefix', value='Changes the bot\'s prefix for the server. Usage: changeprefix (new prefix)', inline=False)
             embed3.add_field(name='role', value='Adds/removes roles from a user. "+role" adds the role,"-role" removes the role, not specifying +/- toggles the role. Roles are to be separated by a ",". Usage: role (user) (role)', inline=False)
             embed3.add_field(name='changejoinleave', value='Change the channel that joins/leaves are logged. Usage: changejoinleave (channel) Note: Use "Unset" for (channel) to stop logging', inline=False)
+            embed3.add_field(name='whois', value='Check information on a user. Usage: whois (user)', inline=False)
             await ctx.author.send(embed=embed3)
 
 
