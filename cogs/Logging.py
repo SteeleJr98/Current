@@ -5,12 +5,53 @@ import re
 import asyncio
 from discord.ext import commands
 
+
+
+
+async def log_command(self, ctx, name):
+
+    with open('command_logging.json', 'r') as f:
+        logcnl = json.load(f)
+        channel2 = logcnl[str(ctx.guild.id)]
+
+    if channel2 == None:
+        pass
+    else:
+        channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+        if channel == None: #if no channel set for the server, do nothing
+            pass
+        else:
+            await channel.send(f'Command {name} was used')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class Logging(commands.Cog):
 
     def __init__(self, client):
         self.client = client
 
 
+
+
+
+    @commands.command()
+    async def test(self, ctx):
+        name = ctx.author.id
+        await log_command(self, ctx, name)
 
 
     @commands.Cog.listener() #when the bot joins a server put the server ID in the jandl_id file with the value "Not Set"
@@ -38,7 +79,7 @@ class Logging(commands.Cog):
     async def changejoinleave(self, ctx, channel):
 
 
-        if channel == 'Unset':
+        if channel.lower() == 'unset':
             with open('jandl_id.json', 'r') as f:
                 jandl_id = json.load(f)
             jandl_id[str(ctx.guild.id)] = None
@@ -185,6 +226,40 @@ class Logging(commands.Cog):
                 embed.set_thumbnail(url=member.avatar_url)
                 embed.set_footer(text=f'ID: {member.id}')
                 await channel.send(embed=embed)
+
+
+
+    @commands.command()
+    async def changelogging(self, ctx, channel):
+        #do stuff
+
+        if channel.lower() == 'unset':
+            with open('command_logging.json', 'r') as f:
+                jandl_id = json.load(f)
+            jandl_id[str(ctx.guild.id)] = None
+
+            with open('command_logging.json', 'w') as f:
+                json.dump(jandl_id, f, indent=4)
+            await ctx.send(f'Command logging channel was unset')
+
+        else:
+            #channelid = (((channel.replace('#', '')).replace('<', '')).replace('>', ''))
+
+            channel = re.sub('[<#>]', '', channel) #remove the characters <, #, and > from the channel so to just get the channel ID
+
+            with open('command_logging.json', 'r') as f:
+                jandl_id = json.load(f)
+            jandl_id[str(ctx.guild.id)] = channel
+
+            with open('command_logging.json', 'w') as f:
+                json.dump(jandl_id, f, indent=4) #change the value of linked to the server's ID in the jandl_id file
+
+            await ctx.send(f'Command logging channel set to <#{channel}>')
+
+
+
+
+
 
 
 
