@@ -16,7 +16,7 @@ status = (['Generating Crash Log', 'Reticulating Splines',
             'Watching You Masticate', 'Monching Leaves',
             'Laser + Dino = Perfection']) #list of statuses the bot will use
 
-Version = 'Snapshot 3.7.1' #version number
+Version = 'Snapshot 3.8.0' #version number
 
 
 
@@ -52,6 +52,7 @@ class Information(commands.Cog):
     @commands.command() #Ping command that shows latency as well
     async def ping(self, ctx):
         await ctx.send(f'Pong! Latency: {round(self.client.latency * 1000)}ms.')
+        await ctx.send('test')
 
 
         await log_command(self, ctx, name = "ping")
@@ -139,6 +140,7 @@ class Information(commands.Cog):
             embed3.add_field(name='role', value='Adds/removes roles from a user. "+role" adds the role,"-role" removes the role, not specifying +/- toggles the role. Roles are to be separated by a ",". Usage: role (user) (role)', inline=False)
             embed3.add_field(name='changejoinleave', value='Change the channel that joins/leaves are logged. Usage: changejoinleave (channel) Note: Use "Unset" for (channel) to stop logging', inline=False)
             embed3.add_field(name='whois', value='Check information on a user. Usage: whois (user)', inline=False)
+            embed3.add_field(name='setlogging', value='Set which commands are logged in the logging channel. Possible commands to log are: role, ban, kick, clear, unban, prefix. Usage: setlogging (command)', inline=False)
             await ctx.author.send(embed=embed3)
 
 
