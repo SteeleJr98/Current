@@ -46,7 +46,7 @@ class Updating(commands.Cog):
                 print('json loaded')
 
             serverids[str(server.id)] = None
-            print('set serverids to none')
+            print('set channels to none')
 
             with open(f'{file_name}.json', 'w') as f:
                 json.dump(serverids, f, indent=4)
