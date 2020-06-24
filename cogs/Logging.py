@@ -10,18 +10,117 @@ from discord.ext import commands
 
 async def log_command(self, ctx, name):
 
-    with open('command_logging.json', 'r') as f:
-        logcnl = json.load(f)
-        channel2 = logcnl[str(ctx.guild.id)]
+    with open('serverlogsettings.json', 'r') as f:
+        logchannel = json.load(f)
+        #print('json loaded')
+        settings = logchannel[str(ctx.guild.id)]
+    #print(f'settings loaded: {settings}')
 
-    if channel2 == None:
-        pass
+
+
+
+    #print(f'command name {name}')
+
+
+    if name not in settings:
+        #print('command not set')
+        return
+
+
     else:
-        channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
-        if channel == None: #if no channel set for the server, do nothing
+        with open('command_logging.json', 'r') as f:
+            logcnl = json.load(f)
+            channel2 = logcnl[str(ctx.guild.id)]
+
+        if channel2 == None:
             pass
         else:
-            await channel.send(f'Command {name} was used')
+            channel = self.client.get_channel(int(channel2)) #get the channel ID from the jandl_id file
+            if channel == None: #if no channel set for the server, do nothing
+                pass
+            else:
+                await channel.send(f'Command {name} was used')
+
+async def change_log_specified(self, server, setting):
+    print('in function')
+    print(setting)
+
+    #list_trimmed = [s.strip() for s in setting.split(',')]
+
+
+    with open('serverlogsettings.json', 'r') as f:
+        guildsettings = json.load(f)
+        print(f'settings for {server}: {guildsettings[str(server.id)]}')
+    #guildsettings[str(server.id)] = setting
+
+    trimmed_settings = [guildsettings[str(server.id)]]
+    print(f'trimmed settings: {trimmed_settings} with length of {len(trimmed_settings)} and type {type(trimmed_settings)}')
+    list_trimmed = [s.strip("[']") for s in str(trimmed_settings).split(',')]
+    new_list_trimmed = [s.strip( ) for s in list_trimmed]
+    print(f'new list trimmed: {new_list_trimmed}')
+    if None in trimmed_settings:
+        print(f'None found in list')
+        trimmed_settings = []
+        print(f'empty trimmed setting {trimmed_settings}')
+
+    # check_string = ' '
+    # check_string = check_string.join(trimmed_settings)
+    # print(f'check string: {check_string}')
+    #
+    # #setting = re.sub('[","]', '', setting)
+    # #print(f'setting string: {setting}')
+    #
+    # converted_setting = str(setting)
+    # converted_setting = (((converted_setting.replace('[', '')).replace(',', '')).replace(']', '')).replace("'", '')
+    # print(f'converted_setting: {converted_setting}')
+
+    # if converted_setting in check_string:
+    #
+    #     print('setting in settings already')
+    #     trimmed_settings.remove(trimmed_settings[setting])
+
+    #if setting in guildsettings[str(server.id)]:
+    if setting in new_list_trimmed:
+        print('setting in settings already')
+
+        # print(f'location {trimmed_settings[1]}')
+        # trimmed_settings.replace('ban', '')
+        #guildsettings[str(server.id)] = (guildsettings[str(server.id)]).replace(str(setting), '')
+        string_setting = str(setting)
+        # print(type(string_setting))
+        # print(type(guildsettings[str(server.id)]))
+        print(string_setting)
+        print(guildsettings[str(server.id)])
+        guild_list = [s.strip() for s in (guildsettings[str(server.id)]).split(',')]
+        print(f'guild list: {guild_list}')
+        guild_list.remove(string_setting)
+        print(f'guild list after remove: {guild_list}')
+
+        guildsettings[str(server.id)] = (str(guild_list)).strip("[']")
+
+
+
+
+    else:
+        print('setting being added to list')
+        trimmed_settings.append(setting)
+
+        print(f'new trimmed: {trimmed_settings}')
+
+        setting_string = ', '
+        print(setting_string)
+        setting_string = setting_string.join(trimmed_settings)
+        print(f'string: {setting_string}')
+
+        guildsettings[str(server.id)] = setting_string
+
+    print(f'new settings {guildsettings}')
+    with open('serverlogsettings.json', 'w') as f:
+        json.dump(guildsettings, f, indent=4)
+
+
+
+
 
 
 
@@ -43,6 +142,50 @@ class Logging(commands.Cog):
 
     def __init__(self, client):
         self.client = client
+
+
+
+
+
+
+
+
+    @commands.command()
+    @commands.has_permissions(manage_guild=True)
+    async def setlogging(self, ctx, *, settings):
+        possible_logs = ['role', 'ban', 'kick', 'clear', 'unban', 'prefix', 'ping']
+
+        #print(settings)
+
+        trimmed_settings = [s.strip() for s in settings.split(',')]
+        #print(trimmed_settings)
+
+        error_settings = []
+        pass_settings = []
+
+        for setting in trimmed_settings:
+            if setting in possible_logs:
+                pass_settings.append(setting)
+                #await ctx.send('in settings')
+                #await change_log_specified(self, ctx.guild, setting)
+            else:
+                error_settings.append(setting)
+                #await ctx.send('invalid setting')
+        if error_settings:
+            await ctx.send(f'{error_settings} not in possible settings')
+
+        if pass_settings:
+            print(f'TEST: {pass_settings[0]}')
+
+            for i in pass_settings:
+                print(f'Setting: {i}')
+                await change_log_specified(self, ctx.guild, i)
+
+
+
+
+
+
 
 
 
