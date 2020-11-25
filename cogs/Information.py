@@ -4,19 +4,24 @@ from itertools import cycle
 import asyncio
 import random
 
+import psutil
+import platform
+
 from .Logging import *
 
 
-
-
-
-status = (['Generating Crash Log', 'Reticulating Splines',
+uname = platform.uname()
+SystemType = uname.system
+if SystemType == 'Windows':
+    status = (['Currently Testing'])
+else:
+    status = (['Generating Crash Log', 'Reticulating Splines',
             'Roasting Plumbers', 'Unfreezing, One Moment',
             'Please hang up and try your call again',
             'Watching You Masticate', 'Monching Leaves',
             'Laser + Dino = Perfection']) #list of statuses the bot will use
 
-Version = 'Snapshot 3.8.0' #version number
+Version = 'Snapshot 4.0.0' #version number
 
 
 
@@ -105,7 +110,7 @@ class Information(commands.Cog):
                 colour = discord.Colour.purple()
             )
 
-            embed5.set_author(name='Music')
+            embed5.set_author(name='Music (Tempororily Disabled Until I Can Make It Good)')
             embed5.add_field(name='join', value='Connects the bot to the voice channel you\'re in. Usage: join', inline=False)
             embed5.add_field(name='leave', value='Disconnects the bot from the voice channel it\'s in. Usage: leave', inline=False)
             embed5.add_field(name='play', value='Bot plays the audio from a YouTube link sent with this command. Usage: play (YouTube link)', inline=False)
