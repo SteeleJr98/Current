@@ -65,10 +65,19 @@ async def reload(ctx, extension):
     client.load_extension(f'cogs.{extension}')
     await ctx.send(f'Cog "{extension}" has been reloaded.')
 
+toDisable = ["ServerInfo.py", "Updating.py", 'Music.py']
+
 for filename in os.listdir('cogs'):
     if filename.endswith('.py'):
-        print(f'Cog loaded: {filename[:-3]}')
-        client.load_extension(f'cogs.{filename[:-3]}')
+        if filename in toDisable:
+            print(f'Cog skipped: {filename[:-3]}')
+        else:
+            print(f'Cog loaded: {filename[:-3]}')
+            client.load_extension(f'cogs.{filename[:-3]}')
+
+
+
+
 
 
 
