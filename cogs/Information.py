@@ -57,7 +57,7 @@ class Information(commands.Cog):
     @commands.command() #Ping command that shows latency as well
     async def ping(self, ctx):
         await ctx.send(f'Pong! Latency: {round(self.client.latency * 1000)}ms.')
-        await ctx.send('test')
+        #await ctx.send('test')
 
 
         await log_command(self, ctx, name = "ping")
